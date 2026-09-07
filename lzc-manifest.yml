@@ -1,0 +1,17 @@
+application:
+  subdomain: hivekeep
+  upstreams:
+    - location: /
+      backend: http://hivekeep:3000/
+
+services:
+  hivekeep:
+    # upstream: ghcr.io/marlburrow/hivekeep:1.10.0
+    image: ghcr.1ms.run/marlburrow/hivekeep:1.10.0
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - HIVEKEEP_DATA_DIR=/app/data
+      - PUBLIC_URL=https://{{ .S.AppDomain }}
+    binds:
+      - /lzcapp/var/data:/app/data
